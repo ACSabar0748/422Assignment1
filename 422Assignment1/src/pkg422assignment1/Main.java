@@ -4,9 +4,7 @@
  */
 package pkg422assignment1;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -15,22 +13,21 @@ import java.util.Scanner;
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-    */
+    
     public static ArrayList<Pet> petList = new ArrayList<>();
+    static Scanner scan = new Scanner(System.in);
     
     public static void main(String[] args) {
         // TODO code application logic here
-                
+        //This code is the beginning of the program and shows the main menu 
         System.out.println("Pet Database Program");
         menuOptions();
         
     }
     
-    public static void menuOptions() {
-        Scanner choice = new Scanner(System.in);
+    public static void menuOptions() {       
         
+        //This code is the print showing the options for the program
         System.out.println("What would you like to do?");
         
         System.out.println("1) View all pets");
@@ -42,7 +39,8 @@ public class Main {
         System.out.println("7) Exit program");
         System.out.println("Your Choice: ");  
         
-        int menu = choice.nextInt();
+        //This is the input code, input 1-7 and depending on the input, a method is initialized
+        int menu = scan.nextInt();
         switch (menu) {
             case 1:
                 viewPets();
@@ -51,25 +49,26 @@ public class Main {
                 addPet();
                 break;
             case 3:
-                //updatePet();
+                updatePet();
                 break;
             case 4: 
-                //removePet();
+                removePet();
                 break;
             case 5:
-                //searchName();
+                searchName();
                 break;
             case 6:
-               // searchAge();
+               searchAge();
                 break;
             case 7:
                 break;
         }
     }   
     
-    
+    //This method displays all of the pets in the database
     public static void viewPets() {
         
+        //This is the display for the Header in the list
         System.out.println("+---------------------+");
         System.out.printf("|%-3s", " ID ");
         System.out.printf("|%-10s", " NAME ");
@@ -77,6 +76,7 @@ public class Main {
         System.out.print("|\n");
         System.out.println("+---------------------+");
         
+        //This is the code for the individual
         for (int i = 0; i < petList.size(); i++) {
             System.out.printf("|%3d" , i);
             System.out.print(" | ");
@@ -88,13 +88,15 @@ public class Main {
         System.out.println(petList.size() + " rows in set.\n");
     }
     
+    //This method adds a pet to the database
     public static void addPet() {
-        Scanner amount = new Scanner(System.in);
+
         int i = 0;
         
         System.out.println("How many pets do you want to add?");
-        int amountNum = amount.nextInt();
+        int amountNum = scan.nextInt();
         
+        //While true the user can add a pet's name and age until they type "done"
         while(true) {
             if (petList.size() < amountNum) {
                 System.out.print("Add pet (name, age): ");
@@ -120,6 +122,72 @@ public class Main {
                     }
                 }
             }
+        }
+    }
+    
+    public static void updatePet() {
+        
+    }
+    
+    public static void removePet() {
+        
+    }
+    
+    //This method searches a name and displays pets based on if they contain the name
+    public static void searchName() {      
+        System.out.println("Enter name to search: ");
+        String nameInput = scan.nextLine();
+        
+        //This is the display for the Header in the list
+        System.out.println("+---------------------+");
+        System.out.printf("|%-3s", " ID ");
+        System.out.printf("|%-10s", " NAME ");
+        System.out.printf("|%-4s", " AGE ");
+        System.out.print("|\n");
+        System.out.println("+---------------------+");
+        
+        //For loop that displays the searched name results
+        for (Pet name : petList) { 
+            String itemName = name.getName(); 
+            if (itemName.contains(nameInput)) { 
+                for (int i = 0; i < petList.size(); i++) {
+                    System.out.printf("|%3d" , i);
+                    System.out.print(" | ");
+                    System.out.printf("%-9s", petList.get(i).getName());
+                    System.out.printf("|%4d", petList.get(i).getAge());
+                    System.out.print(" |\n");
+                }
+                System.out.println("+---------------------+");
+            } 
+        }
+    }
+    
+    //This method searches a age and displays pets based on if they contain the age
+    public static void searchAge() {
+        System.out.println("Enter age to search: ");
+        int ageInput = scan.nextInt();
+        
+        //This is the display for the Header in the list
+        System.out.println("+---------------------+");
+        System.out.printf("|%-3s", " ID ");
+        System.out.printf("|%-10s", " NAME ");
+        System.out.printf("|%-4s", " AGE ");
+        System.out.print("|\n");
+        System.out.println("+---------------------+");
+        
+        //For loop that displays the searched age results
+        for (Pet age : petList) { 
+            int itemAge = age.getAge(); 
+            if (itemAge == ageInput) { 
+                for (int i = 0; i < petList.size(); i++) {
+                    System.out.printf("|%3d" , i);
+                    System.out.print(" | ");
+                    System.out.printf("%-9s", petList.get(i).getName());
+                    System.out.printf("|%4d", petList.get(i).getAge());
+                    System.out.print(" |\n");
+                }
+                System.out.println("+---------------------+");
+            } 
         }
     }
 }
