@@ -40,6 +40,7 @@ public class Main {
         System.out.println("Your Choice: ");  
         
         //This is the input code, input 1-7 and depending on the input, a method is initialized
+
         int menu = scan.nextInt();
         switch (menu) {
             case 1:
@@ -59,8 +60,9 @@ public class Main {
                 break;
             case 6:
                searchAge();
-                break;
+               break;
             case 7:
+                System.exit(0);
                 break;
         }
     }   
@@ -86,6 +88,7 @@ public class Main {
         }
         System.out.println("+---------------------+");
         System.out.println(petList.size() + " rows in set.\n");
+        menuOptions();
     }
     
     //This method adds a pet to the database
@@ -123,14 +126,48 @@ public class Main {
                 }
             }
         }
+        menuOptions();
     }
     
+    //This method updates an existing pet data with new information after inputing the ID of the pet.
     public static void updatePet() {
+        String originalName;
+        int originalAge;
         
+        viewPets();
+        
+        System.out.println("Enter the pet ID you want to update: ");
+        int update = scan.nextInt();
+        
+        System.out.println("Enter new name and new age: ");
+        String updatePetInfo = scan.nextLine();
+        
+        //The variables for the new data
+        String newName = updatePetInfo.split("\\s+")[0];
+        int newAge = Integer.parseInt(updatePetInfo.split("\\s+")[1]);
+        
+        //The varaibles for the old data
+        originalName = petList.get(update).getName();
+        originalAge = petList.get(update).getAge();
+        
+        //Updating the old pet with the new information
+        petList.get(update).setName(newName);
+        petList.get(update).setAge(newAge);
+        
+        System.out.println(originalName + " " + originalAge + " changed to " + newName + " " + newAge);  
+        
+        menuOptions();
     }
     
+    //This method removes a pet in the database
     public static void removePet() {
+        viewPets();
+        System.out.println("Enter a pet ID to remove: ");
+        int id = scan.nextInt();
         
+        System.out.println(petList.get(id).getName() + " has been removed from the list");
+        petList.remove(id);
+        menuOptions(); 
     }
     
     //This method searches a name and displays pets based on if they contain the name
@@ -160,6 +197,7 @@ public class Main {
                 System.out.println("+---------------------+");
             } 
         }
+        menuOptions();
     }
     
     //This method searches a age and displays pets based on if they contain the age
@@ -189,5 +227,6 @@ public class Main {
                 System.out.println("+---------------------+");
             } 
         }
+        menuOptions();
     }
 }
